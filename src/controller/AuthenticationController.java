@@ -92,4 +92,14 @@ public class AuthenticationController{
 			e.printStackTrace();
 		}
 	}
+	
+	
+	 @FXML
+	 void logout(ActionEvent event) throws IOException {
+		 Parent pane = (BorderPane)FXMLLoader.load(getClass().getResource("../view/Login.fxml"));
+			Scene employeePage = new Scene(pane, 800, 550);
+			Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+			app_stage.setScene(employeePage);
+			app_stage.show();
+	 }
 }

@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="454.0" prefWidth="702.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="454.0" prefWidth="702.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AuthenticationController">
    <left>
       <AnchorPane prefHeight="395.0" prefWidth="179.0" style="-fx-background-color: #0047b3;" BorderPane.alignment="CENTER">
          <children>
@@ -29,13 +29,18 @@
       </AnchorPane>
    </left>
    <top>
-      <AnchorPane prefHeight="59.0" prefWidth="702.0" style="-fx-background-color: #0047b3;" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="59.0" prefWidth="649.0" style="-fx-background-color: #0047b3;" BorderPane.alignment="CENTER">
          <children>
             <Hyperlink layoutX="18.0" layoutY="11.0" text="Employee Management" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
             </Hyperlink>
+            <Button fx:id="logoutButton" layoutX="609.0" layoutY="11.0" mnemonicParsing="false" onAction="#logout" prefHeight="37.0" prefWidth="93.0" style="-fx-background-color: #0047b3;" text="Logout" textFill="WHITE" AnchorPane.rightAnchor="0.0">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Button>
          </children>
       </AnchorPane>
    </top>
