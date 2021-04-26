@@ -21,7 +21,7 @@ import javafx.scene.text.Text;
 import javafx.stage.PopupWindow;
 import javafx.stage.Stage;
 
-public class PositionController extends MainController {
+public class PositionController {
 	private Stage stage;
 	private Connection cnn;
 	private String sql;
