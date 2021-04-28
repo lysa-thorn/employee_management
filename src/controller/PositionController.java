@@ -1,27 +1,39 @@
 package controller;
 
 import java.io.IOException;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
 
 import application.DBConnection;
 import classess.Position;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.SelectionMode;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.PopupWindow;
 import javafx.stage.Stage;
 
-public class PositionController {
+public class PositionController implements Initializable {
 	private Stage stage;
 	private Connection cnn;
 	private String sql;
@@ -29,11 +41,26 @@ public class PositionController {
 	private ResultSet rs;
 
 	@FXML
-    private TextField position;
+	private TableView<MaintenancePosition> table;
+
+	@FXML
+	private TableColumn col_id;
 	
 	@FXML
-    private Text errorMessage;
+	private TableColumn action;
 	
+	@FXML
+	private TableColumn col_position;
+	
+	@FXML
+	private TextField position;
+	
+	@FXML
+	private TextField id;
+
+	@FXML
+	private Text errorMessage;
+
 	public PositionController() {
 		cnn = DBConnection.initDB();
 	}
@@ -55,22 +82,82 @@ public class PositionController {
 			if (!position.getText().equals("")) {
 				pstmt = cnn.prepareStatement(sql);
 				pstmt.setString(1, position.getText());
+
+				if (pstmt.executeUpdate() != 0) {		
+					Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();			
+					app_stage.close();	
 				
-				if (pstmt.executeUpdate() != 0) {
-					Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-					app_stage.close();
 					return true;
-					
 				}
-			}else{
+			} else {
 				errorMessage.setText("Please fill in the position");
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		return false;
+
+	}
+
+	public ObservableList<MaintenancePosition> getPosition() {
+		sql = "SELECT * FROM positions";
+		List<Position> positions = new ArrayList<Position>();
+		try {
+			pstmt = cnn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+
+				positions.add( 
+						new Position(rs.getInt("id")+"", rs.getString("name") )
+				);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		List<MaintenancePosition> test = new ArrayList(positions);
+		ObservableList<MaintenancePosition> maintenancePosition = 
+				FXCollections.observableArrayList(test);
+
+		return maintenancePosition;
+	}
+	
+	public void displayData() {
+		try {
+			
+			ObservableList<MaintenancePosition> data = getPosition();
+			
+			col_id.setMinWidth(20);
+			col_position.setMinWidth(80);
+			
+			//col_id = new TableColumn("Col ID");
+			col_id.setCellValueFactory(new PropertyValueFactory<>("id"));
+			
+			//col_position = new TableColumn("Col Position");
+			col_position.setCellValueFactory(new PropertyValueFactory<>("position"));
+		    table.setItems(data);
+		    table.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+		    
+
+		}catch(Exception e) {
+			
+		}
 		
 	}
+
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+
+		displayData() ;
+		try {
+			
+		} catch (Exception e) {
+			
+		}
+        
+	}
 }
+

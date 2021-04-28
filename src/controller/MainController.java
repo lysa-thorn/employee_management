@@ -115,25 +115,19 @@ public class MainController {
 	}
 
 	@FXML
-	ArrayList<Position> positionPressed(ActionEvent event) {
-		sql = "SELECT * FROM positions";
-		ArrayList<Position> positions = new ArrayList<>();
-		try {
-			pstmt = cnn.prepareStatement(sql);
-			rs = pstmt.executeQuery();
-			while (rs.next()) {
-
-				positions.add(new Position(rs.getString("name"))
-
-				);
-			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		loadPage("Position");
-		return positions;
+	void positionPressed(ActionEvent event) {
 		
+		loadPage("Position");
+		
+	}
+	
+	@FXML
+	void createPosition(ActionEvent event) throws IOException {
+		Parent pane = (BorderPane) FXMLLoader.load(getClass().getResource("../view/EmployeeCreation.fxml"));
+		Scene scene = new Scene(pane, 550, 400);
+		Stage stage = new Stage();
+		stage.setScene(scene);
+		stage.show();
 	}
 	
 	
