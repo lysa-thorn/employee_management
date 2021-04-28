@@ -45,18 +45,18 @@ public class PositionController implements Initializable {
 
 	@FXML
 	private TableColumn col_id;
-	
+
 	@FXML
 	private TableColumn action;
-	
+
 	@FXML
 	private TableColumn col_position;
-	
+
 	@FXML
 	private TextField position;
-	
+
 	@FXML
-	private TextField id;
+	private int id;
 
 	@FXML
 	private Text errorMessage;
@@ -72,6 +72,7 @@ public class PositionController implements Initializable {
 		Stage stage = new Stage();
 		stage.setScene(scene);
 		stage.show();
+
 	}
 
 	@FXML
@@ -83,10 +84,10 @@ public class PositionController implements Initializable {
 				pstmt = cnn.prepareStatement(sql);
 				pstmt.setString(1, position.getText());
 
-				if (pstmt.executeUpdate() != 0) {		
-					Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();			
-					app_stage.close();	
-				
+				if (pstmt.executeUpdate() != 0) {
+					Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+					app_stage.close();
+
 					return true;
 				}
 			} else {
@@ -109,9 +110,7 @@ public class PositionController implements Initializable {
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 
-				positions.add( 
-						new Position(rs.getInt("id")+"", rs.getString("name") )
-				);
+				positions.add(new Position(rs.getInt("id") + "", rs.getString("name")));
 			}
 
 		} catch (SQLException e) {
@@ -119,45 +118,55 @@ public class PositionController implements Initializable {
 		}
 
 		List<MaintenancePosition> test = new ArrayList(positions);
-		ObservableList<MaintenancePosition> maintenancePosition = 
-				FXCollections.observableArrayList(test);
+		ObservableList<MaintenancePosition> maintenancePosition = FXCollections.observableArrayList(test);
 
 		return maintenancePosition;
 	}
-	
+
 	public void displayData() {
 		try {
-			
+
 			ObservableList<MaintenancePosition> data = getPosition();
-			
+
 			col_id.setMinWidth(20);
 			col_position.setMinWidth(80);
-			
-			//col_id = new TableColumn("Col ID");
-			col_id.setCellValueFactory(new PropertyValueFactory<>("id"));
-			
-			//col_position = new TableColumn("Col Position");
-			col_position.setCellValueFactory(new PropertyValueFactory<>("position"));
-		    table.setItems(data);
-		    table.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-		    
 
-		}catch(Exception e) {
-			
+			// col_id = new TableColumn("Col ID");
+			col_id.setCellValueFactory(new PropertyValueFactory<>("id"));
+
+			// col_position = new TableColumn("Col Position");
+			col_position.setCellValueFactory(new PropertyValueFactory<>("position"));
+			table.setItems(data);
+			table.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+			table.refresh();
+		} catch (Exception e) {
+
 		}
-		
+
+	}
+
+	@FXML
+	boolean deletePosition(ActionEvent event) {
+		System.out.println(table.getSelectionModel().getSelectedItems().get(id));
+		sql = "DELETE FROM positions WHERE id = " + table.getSelectionModel().getSelectedItems().get(id);
+		try {
+			pstmt = cnn.prepareStatement(sql);
+			
+			if (pstmt.executeUpdate() != 0) {
+
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return false;
 	}
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 
-		displayData() ;
-		try {
-			
-		} catch (Exception e) {
-			
-		}
-        
+		displayData();
+
 	}
 }
-

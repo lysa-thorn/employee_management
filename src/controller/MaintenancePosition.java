@@ -31,5 +31,9 @@ public class MaintenancePosition {
 		this.id.set(id);
 	}
 
+	@Override
+	public String toString() {
+		return this.position.get();
+	}
 
 }

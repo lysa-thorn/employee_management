@@ -30,7 +30,7 @@ public class Position {
 	
 	@Override
 	public String toString() {
-		return "Position [id=" + id + ", position=" + position +"]";
+		return id;
 	}
 	
 	

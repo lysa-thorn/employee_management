@@ -47,7 +47,7 @@
    <center>
       <AnchorPane fx:id="ap" prefHeight="410.0" prefWidth="523.0" BorderPane.alignment="CENTER">
          <children>
-            <Button layoutX="45.0" layoutY="34.0" mnemonicParsing="false" onAction="#createPosition" style="-fx-background-color: #0047b3;;" text="New Employee" textFill="WHITE">
+            <Button layoutX="45.0" layoutY="34.0" mnemonicParsing="false" onAction="#createEmployee" style="-fx-background-color: #0047b3;;" text="New Employee" textFill="WHITE">
                <font>
                   <Font size="13.0" />
                </font>

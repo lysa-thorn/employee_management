@@ -8,10 +8,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-
 import application.DBConnection;
-import classess.Position;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -122,12 +120,13 @@ public class MainController {
 	}
 	
 	@FXML
-	void createPosition(ActionEvent event) throws IOException {
+	void createEmployee(ActionEvent event) throws IOException {
 		Parent pane = (BorderPane) FXMLLoader.load(getClass().getResource("../view/EmployeeCreation.fxml"));
 		Scene scene = new Scene(pane, 550, 400);
 		Stage stage = new Stage();
 		stage.setScene(scene);
 		stage.show();
+		
 	}
 	
 	
