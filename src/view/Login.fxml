@@ -32,8 +32,8 @@
    <center>
       <AnchorPane prefHeight="347.0" prefWidth="471.0" BorderPane.alignment="CENTER">
          <children>
-            <TextField fx:id="username" layoutX="43.0" layoutY="63.0" prefHeight="30.0" prefWidth="218.0" />
-            <PasswordField fx:id="password" layoutX="44.0" layoutY="111.0" prefHeight="30.0" prefWidth="215.0" />
+            <TextField fx:id="username" layoutX="43.0" layoutY="63.0" prefHeight="30.0" prefWidth="218.0" text="hr@gmail.com" />
+            <PasswordField fx:id="password" layoutX="44.0" layoutY="111.0" prefHeight="30.0" prefWidth="215.0" text="password" />
             <Button fx:id="loginButton" layoutX="45.0" layoutY="158.0" mnemonicParsing="false" onAction="#login" prefHeight="14.0" prefWidth="60.0" style="-fx-background-color: #0047b3;" text="Login" textFill="WHITE">
                <font>
                   <Font size="14.0" />
