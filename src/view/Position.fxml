@@ -16,6 +16,11 @@
                   <Font size="13.0" />
                </font>
             </Button>
+            <Button layoutX="185.0" layoutY="11.0" mnemonicParsing="false" onAction="#deletePosition" prefHeight="30.0" prefWidth="118.0" style="-fx-background-color: #0047b3;" text="Delete Position" textFill="WHITE">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Button>
          </children>
       </AnchorPane>
    </top>
